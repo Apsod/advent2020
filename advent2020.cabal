@@ -1,0 +1,85 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 2a7b3675fd07c2195aa3388da5af8d2c61033a92b4de73112aa3ef90f12ad872
+
+name:           advent2020
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/advent2020#readme>
+homepage:       https://github.com/githubuser/advent2020#readme
+bug-reports:    https://github.com/githubuser/advent2020/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/advent2020
+
+library
+  exposed-modules:
+      Day1
+      Day2
+      Day3
+      Day4
+      Day5
+      Day6
+      Day7
+      Day8
+      Day9
+  other-modules:
+      Paths_advent2020
+  hs-source-dirs:
+      src
+  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections
+  build-depends:
+      array
+    , attoparsec
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+  default-language: Haskell2010
+
+executable advent2020-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_advent2020
+  hs-source-dirs:
+      app
+  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      advent2020
+    , array
+    , attoparsec
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+  default-language: Haskell2010
+
+test-suite advent2020-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_advent2020
+  hs-source-dirs:
+      test
+  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      advent2020
+    , array
+    , attoparsec
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+  default-language: Haskell2010
