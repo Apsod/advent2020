@@ -10,6 +10,7 @@ import Day6
 import Day7
 import Day8
 import Day9
+import Day10
 
 solvers = [
   undefined,
@@ -21,10 +22,12 @@ solvers = [
   Day6.solve,
   Day7.solve,
   Day8.solve,
-  Day9.solve
+  Day9.solve,
+  Day10.solve
   ]
 
 main :: IO ()
 main = do
   [day, filepath] <- getArgs
-  solvers !! (read day) $ filepath
+  solvers !! read day $ filepath
+
