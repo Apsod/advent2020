@@ -2,7 +2,7 @@ module Day12 (solve) where
 
 import Data.Attoparsec.ByteString.Char8 as P
 import qualified Data.ByteString.Char8 as BS
-import Linear (V2(..), (^+^), (*^), (!*))
+import Linear (V2(..), (^+^), (^*), (!*))
 import Data.Monoid
 
 data State = State (V2 Int) (V2 Int)
@@ -13,7 +13,7 @@ manhattan (State p _) = getSum $ foldMap (Sum . abs) p
 
 data Instruction
     = Forward Int
-    | Rotate Int
+    | Rotate (V2 (V2 Int))
     | Move (V2 Int)
     deriving(Show)
 
@@ -26,24 +26,11 @@ intCos x = go (x `mod` 360)
         go 270 = 0
 
 intSin :: Int -> Int
-intSin x = go (x `mod` 360)
-    where 
-        go 0 = 0
-        go 90 = 1
-        go 180 = 0
-        go 270 = -1
-
-
-addv :: V2 Int -> V2 Int -> Int -> V2 Int
-addv v delta alpha = v ^+^ (alpha *^ delta)
+intSin x = intCos (90 - x)
 
 step1 :: Instruction -> State -> State
-step1 (Forward units) (State position direction) = State (addv position direction units) direction
-step1 (Rotate degrees) (State position direction) = State position (rotation !* direction)
-    where 
-        sin = intSin degrees
-        cos = intCos degrees
-        rotation = V2 (V2 cos (-sin)) (V2 sin cos)
+step1 (Forward units) (State position direction) = State (position ^+^ (direction ^* units)) direction
+step1 (Rotate rotation) (State position direction) = State position (rotation !* direction)
 step1 (Move delta) (State position direction) = State (position ^+^ delta) direction
 
 step2 :: Instruction -> State -> State
@@ -66,11 +53,15 @@ dataparser = (parseline `sepBy` endOfLine) <* skipSpace <* endOfInput
             Move . flip V2 0 . negate <$> ("W" *> decimal)
             ]
         rotparser = choice [
-            Rotate <$> ("L" *> decimal),
-            Rotate . negate <$> ("R" *> decimal)
+            Rotate . toRot <$> ("L" *> decimal),
+            Rotate . toRot . negate <$> ("R" *> decimal)
             ]
         forwardparser = Forward <$> ("F" *> decimal)
         parseline = choice [moveparser, rotparser, forwardparser]
+        toRot degrees = V2 (V2 cos (-sin)) (V2 sin cos)
+            where
+                sin = intSin degrees
+                cos = intCos degrees
 
 solve1 :: [Instruction] -> Int
 solve1 = manhattan . foldl (flip step1) state1
