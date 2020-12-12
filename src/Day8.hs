@@ -3,7 +3,6 @@ module Day8 (solve) where
 import Data.Either
 import Data.Array
 import Data.Array.ST
-import Data.STRef
 import Control.Monad.ST
 import Data.Attoparsec.ByteString.Char8 as P
 import qualified Data.ByteString.Char8 as BS

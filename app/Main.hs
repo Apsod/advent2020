@@ -11,6 +11,8 @@ import Day7
 import Day8
 import Day9
 import Day10
+import Day11
+import Day12
 
 solvers = [
   undefined,
@@ -23,7 +25,9 @@ solvers = [
   Day7.solve,
   Day8.solve,
   Day9.solve,
-  Day10.solve
+  Day10.solve,
+  Day11.solve,
+  Day12.solve
   ]
 
 main :: IO ()

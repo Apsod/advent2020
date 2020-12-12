@@ -9,28 +9,25 @@ import qualified Data.ByteString.Char8 as BS
 dataparser ::  Parser [Int]
 dataparser = (decimal `sepBy` endOfLine) <* skipSpace <* endOfInput
 
+tailZipWith :: (a -> a -> b) -> [a] -> [b]
+tailZipWith f xs@(_:xs') = zipWith f xs xs'
 
 counter :: [Int] -> IntMap Int
 counter = IntMap.fromListWith (+) . fmap (,1)
 
 solve1 :: [Int] -> Int
-solve1 xs = (ret ! 1) * (ret ! 3)
-    where 
-        xs' = 0 : sort xs
-        ret = counter $ 3 : zipWith (-) (tail xs') xs'
-
+solve1 = (\c -> (c ! 1) * (c ! 3)) . counter . (3:) . tailZipWith (flip (-)) . (0:) . sort
 
 solve2 :: [Int] -> Int
-solve2 xs = go xs' (1 : [0,0..])
+solve2 = go (1 : [0,0..]) . (0:) . sort 
     where 
-        xs' = 0 : sort xs
-        go [x] (p : _) = p
-        go (x : xs) (p : ps) =
+        go (p : _) [x] = p
+        go (p : ps) (x : xs) =
             let 
                 jumps = length $ List.takeWhile (<= x+3) xs
                 (l, r) = splitAt jumps ps
                 ps' = fmap (+p) l ++ r
-            in go xs ps'
+            in go ps' xs
 
 
 solve :: String -> IO ()
