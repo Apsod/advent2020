@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 937dd95911aa9447d7551bf3ca0023f5c658d9761162efd5ec69804534ec771c
+-- hash: c3cd8288bd8d50906f0bd0b2af089b1f6d2d6f3e6b815b59aa259cccee9de062
 
 name:           advent2020
 version:        0.1.0.0
@@ -36,6 +36,8 @@ library
       Day15
       Day16
       Day17
+      Day18
+      Day19
       Day2
       Day3
       Day4
@@ -49,7 +51,7 @@ library
       Paths_advent2020
   hs-source-dirs:
       src
-  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections LambdaCase
+  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections LambdaCase DeriveFunctor
   build-depends:
       array
     , attoparsec
@@ -66,7 +68,7 @@ executable advent2020-exe
       Paths_advent2020
   hs-source-dirs:
       app
-  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections LambdaCase
+  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections LambdaCase DeriveFunctor
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:
       advent2020
@@ -86,7 +88,7 @@ test-suite advent2020-test
       Paths_advent2020
   hs-source-dirs:
       test
-  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections LambdaCase
+  default-extensions: OverloadedStrings ScopedTypeVariables TupleSections LambdaCase DeriveFunctor
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       advent2020

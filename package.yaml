@@ -33,6 +33,7 @@ default-extensions:
   - ScopedTypeVariables
   - TupleSections
   - LambdaCase
+  - DeriveFunctor
 
 library:
   source-dirs: src
